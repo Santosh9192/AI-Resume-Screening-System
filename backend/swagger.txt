@@ -1,0 +1,173 @@
+cd D:\BS9192\AI_resume_screening
+
+venv\Scripts\activate
+
+python -m uvicorn app.main:app --reload
+
+
+
+// fronend
+cd frontend
+npm install
+npm install axios react-router-dom
+npm run dev
+
+
+1. Register Candidate
+
+POST /register
+
+{
+  "full_name": "Santosh Patil",
+  "email": "santosh@test.com",
+  "password": "mypassword123",
+  "role": "candidate"
+}
+2. Register Recruiter
+
+POST /register
+
+{
+  "full_name": "HR Manager",
+  "email": "hr@test.com",
+  "password": "admin123",
+  "role": "recruiter"
+}
+3. Candidate Login
+
+POST /login
+
+{
+  "email": "santosh@test.com",
+  "password": "mypassword123"
+}
+
+Copy the access_token from the response.
+
+4. Recruiter Login
+
+POST /login
+
+{
+  "email": "hr@test.com",
+  "password": "admin123"
+}
+
+Copy the access_token from the response.
+
+5. Authorize
+
+Click Authorize (🔒).
+
+Paste:
+
+Bearer YOUR_ACCESS_TOKEN
+
+or if your Swagger already adds Bearer, paste only:
+
+YOUR_ACCESS_TOKEN
+6. Upload Resume
+
+POST /upload-resume
+
+Fill in:
+
+candidate_name
+
+Example:
+
+Santosh Patil
+
+Choose a PDF file from your computer.
+
+Click Execute.
+
+7. Recruiter Dashboard
+
+GET
+
+/recruiter/candidates
+
+No body required.
+
+Click Execute.
+
+8. Search Candidate
+
+GET
+
+/recruiter/search
+
+Query parameter:
+
+skill
+
+Try these values one by one:
+
+python
+sql
+git
+machine learning
+fastapi
+docker
+aws
+9. Candidate Details
+
+GET
+
+/recruiter/candidate/{resume_id}
+
+Example:
+
+1
+
+or
+
+2
+
+depending on the resume IDs in your database.
+
+10. Shortlist Candidate
+
+POST
+
+/recruiter/shortlist/{resume_id}
+
+Example:
+
+1
+11. View Shortlisted Candidates
+
+GET
+
+/recruiter/shortlisted
+
+No body required.
+
+12. Job Description Matching ⭐
+
+POST
+
+/recruiter/job-match
+Test Case 1 – Python Developer
+{
+  "job_description": "Looking for a Python Developer with Python, SQL, FastAPI, Docker, AWS, Git and Machine Learning."
+}
+Test Case 2 – Backend Developer
+{
+  "job_description": "Need Backend Developer having Python, FastAPI, PostgreSQL, Docker, REST API, Git."
+}
+Test Case 3 – AI Engineer
+{
+  "job_description": "Hiring AI Engineer with Machine Learning, Python, TensorFlow, PyTorch, SQL, Git."
+}
+Test Case 4 – Data Scientist
+{
+  "job_description": "Looking for Data Scientist with Python, Pandas, NumPy, SQL, Machine Learning."
+}
+Test Case 5 – Java Developer
+{
+  "job_description": "Looking for Java Developer with Java, Spring Boot, MySQL, REST API, Git."
+}
+
+⚠️ Since your current REQUIRED_SKILLS list doesn't include java or spring boot, this test won't match well. We'll improve that next.
